@@ -3,12 +3,12 @@ from timeit import repeat
 
 # importing PyQt5 modules. So we can use the GUI functionality of PyQt5.
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLineEdit, QLabel
-import sys # importing the sys module. 
+import sys  # importing the sys module.
 
 # import matplotlib.pyplot as plt. So we can use the plotting functionality of matplotlib.
-import matplotlib.pyplot as plt 
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas # This allows us to display the figure in the GUI by using the canvas.
-from matplotlib.figure import Figure # FigureCanvasQTAgg is the canvas to display the figure.
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas  # This allows us to display the figure in the GUI by using the canvas.
+from matplotlib.figure import Figure  # FigureCanvasQTAgg is the canvas to display the figure.
+
 
 # ---------------------- Algorithms ----------------------
 def insertion_sort(arr, key=lambda x: x):
@@ -19,6 +19,7 @@ def insertion_sort(arr, key=lambda x: x):
             arr[j + 1] = arr[j]
             j -= 1
         arr[j + 1] = key_value
+
 
 def merge_sort(arr, key=lambda x: x):
     if len(arr) > 1:
@@ -47,6 +48,7 @@ def merge_sort(arr, key=lambda x: x):
             j += 1
             k += 1
 
+
 def quick_sort(arr, key=lambda x: x):
     if len(arr) <= 1:
         return arr
@@ -59,13 +61,14 @@ def quick_sort(arr, key=lambda x: x):
 
 # ---------------------- Timing ----------------------
 def run_sorting_algorithm(algorithm, array):
-        setup_code = f"from __main__ import {algorithm}"
-        stmt = f"{algorithm}({array})"
-        times = repeat(setup=setup_code, stmt=stmt, repeat=3, number=10)
-        return min(times)
+    setup_code = f"from __main__ import {algorithm}"
+    stmt = f"{algorithm}({array})"
+    times = repeat(setup=setup_code, stmt=stmt, repeat=3, number=10)
+    return min(times)
+
 
 # ---------------------- GUI ----------------------
-class MainWindow(QWidget): # creating a class that inherits from QWidget.
+class MainWindow(QWidget):  # creating a class that inherits from QWidget.
     def __init__(self):
         super().__init__()
 
@@ -91,7 +94,6 @@ class MainWindow(QWidget): # creating a class that inherits from QWidget.
         array_size = int(self.text_box.text())              # gets the text from the text box and converts it to an integer.
         algo_times = main(array_size)                       # calling the main function with the size of the array. Returns the times.
 
-
         self.figure.clear()                                 # clears the figure.
         ax = self.figure.add_subplot(111)                   # adds a subplot to the figure.
         ax.bar(algo_times.keys(), algo_times.values())      # creates a bar chart with the times.
@@ -101,9 +103,11 @@ class MainWindow(QWidget): # creating a class that inherits from QWidget.
 
         self.canvas.draw()
 
+
 # ---------------------- Main ----------------------
 def main(array_size):
-    array_list = [randint(0, 1000) for _ in range(array_size)]  # creates a list of random numbers, given the size of the array.
+    # creates a list of random numbers, given the size of the array.
+    array_list = [randint(0, 1000) for _ in range(array_size)]
 
     sorting_algorithms = {
         'Insertion Sort': insertion_sort,
@@ -111,13 +115,14 @@ def main(array_size):
         'Quick Sort': quick_sort,
     }
 
-    algo_times = {} # stores the running times of the algorithms.
+    algo_times = {}  # stores the running times of the algorithms.
 
     for algorithm_name, algorithm_func in sorting_algorithms.items():
         running_time = run_sorting_algorithm(algorithm_func.__name__, array_list.copy())
         algo_times[algorithm_name] = running_time   # adds the time to the dictionary.
 
     return algo_times                               # returns the dictionary of times.
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
