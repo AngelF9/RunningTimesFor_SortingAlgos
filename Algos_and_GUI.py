@@ -7,7 +7,7 @@ import sys  # importing the sys module.
 
 # import matplotlib.pyplot as plt. So we can use the plotting functionality of matplotlib.
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas  # This allows us to display the figure in the GUI by using the canvas.
-from matplotlib.figure import Figure  # FigureCanvasQTAgg is the canvas to display the figure.
+from matplotlib.figure import Figure  # FigureCanvasQTAgg is the canvas to display the figure. 
 
 # ---------------------- Algorithms ----------------------
 def insertion_sort(arr, key=lambda x: x):
